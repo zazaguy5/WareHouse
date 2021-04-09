@@ -1,0 +1,3 @@
+DROP TABLE goodin;
+DROP TABLE goodout;
+DROP TABLE goods;
