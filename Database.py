@@ -13,7 +13,6 @@ def goods():
         "create table if not exists goodin(ID char(4), date_in varchar(10), amount_in int, primary key (ID), foreign key (ID) references goods(ID));"
         "create table if not exists goodout(ID char(4), date_out varchar(10), amount_out int, primary key (ID), foreign key (ID) references goods(ID));"
     )
-    print("Connected Database. Database Have Changed!")
     mydb.commit()
     mydb.close()
 
@@ -25,7 +24,7 @@ def add_data(ID, good_name, types, amount):
         database = "warehouse"
     )
     mycursor = mydb.cursor()
-    mycursor.execute("INSERT INTO goods VALUES("+ID +good_name +types +amount +")")
+    mycursor.execute("INSERT INTO goods VALUES(%s, %s, %s, %s)" , (ID ,good_name ,types ,int(amount)))
     mydb.commit()
     mydb.close()
 
@@ -79,8 +78,3 @@ def update_data(ID, good_name, types, amount):
     mycursor.execute("SELECT * FROM goods WHERE ID=?", (id,))
     mydb.commit()
     mydb.close()
-
-#goods()
-#add_data("0001","พัดลม","เครื่องใช้ไฟฟ้า",10)
-#delete_data("0002")
-#search_data("0003")
