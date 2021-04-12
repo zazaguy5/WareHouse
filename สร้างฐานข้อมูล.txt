@@ -1,19 +1,19 @@
 create table goods
-	(ID			char(4),
+	(ID			int,
 	 good_name		varchar(20) not null,
 	 type			varchar(15),
 	 amount			int,
 	 primary key (ID)
 	);
 create table goodin
-	(ID			char(4),
+	(ID			int,
 	 date_in		varchar(10),
 	 amount_in		int,
 	 primary key (ID),
 	 foreign key (ID) references goods(ID)
 	);
 create table goodout
-	(ID			char(4),
+	(ID			int,
 	 date_out		varchar(10),
 	 amount_out		int,
 	 primary key (ID),

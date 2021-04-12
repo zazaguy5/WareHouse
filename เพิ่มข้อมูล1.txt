@@ -1,0 +1,10 @@
+insert into goods values (1, 'พัดลมตั้งโต๊ะ', 'เครื่องใช้ไฟฟ้า', 20 );
+insert into goods values (2, 'หม้อหุงข้าว', 'เครื่องใช้ไฟฟ้า', 30);
+insert into goods values (3, 'น้ำดื่มนนทรี', 'เครื่องดื่ม', 50);
+insert into goods values (4, 'โซดา', 'เครื่องดื่ม', 30);
+insert into goods values (5, 'โค้ก', 'เครื่องดื่ม', 100);
+insert into goods values (6, 'น้ำตาลทรายขาว', 'เครื่องปรุง', 50);
+insert into goods values (7, 'ซอสหอยนางรม', 'เครื่องปรุง', 20);
+insert into goods values (8, 'ข้าวหอมมะลิ', 'อาหารแห้ง', 50);
+insert into goods values (9, 'ทุเรียนอบแห้ง', 'ขนมขบเคี้ยว', 30);
+insert into goods values (10, 'เลย์มันฝรั่งทอดกรอบ', 'ขนมขบเคี้ยว', 100);

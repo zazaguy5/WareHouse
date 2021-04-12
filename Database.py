@@ -24,7 +24,7 @@ def add_data(ID, good_name, types, amount):
         database = "warehouse"
     )
     mycursor = mydb.cursor()
-    mycursor.execute("INSERT INTO goods VALUES(%s, %s, %s, %s)" , (ID ,good_name ,types ,int(amount)))
+    mycursor.execute("INSERT INTO goods VALUES(%s, %s, %s, %s)" , (int(ID) ,good_name ,types ,int(amount)))
     mydb.commit()
     mydb.close()
 
@@ -62,10 +62,10 @@ def search_data(ID):
     )
     mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM goods WHERE ID="+ID)
-    #result = mycursor.fetchall()
-    #print(result)
+    data1 = mycursor.fetchall()
     mydb.commit()
     mydb.close()
+    return data1
 
 def update_data(ID, good_name, types, amount):
     mydb = mysql.connector.connect(
@@ -75,6 +75,6 @@ def update_data(ID, good_name, types, amount):
         database = "warehouse"
     )
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM goods WHERE ID=?", (id,))
+    mycursor.execute("UPDATE goods SET ID=%s, good_name=%s, type=%s, amount=%s WHERE ID=%s", (int(ID), good_name, types, int(amount), int(ID)))
     mydb.commit()
     mydb.close()
