@@ -78,3 +78,62 @@ def update_data(ID, good_name, types, amount):
     mycursor.execute("UPDATE goods SET ID=%s, good_name=%s, type=%s, amount=%s WHERE ID=%s", (int(ID), good_name, types, int(amount), int(ID)))
     mydb.commit()
     mydb.close()
+
+def view_goodin():
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "zazaguy5",
+        password = "426815",
+        database = "warehouse"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM goodin")
+    rows = mycursor.fetchall()
+    mydb.close()
+    return rows
+
+def view_goodout():
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "zazaguy5",
+        password = "426815",
+        database = "warehouse"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM goodout")
+    rows = mycursor.fetchall()
+    mydb.close()
+    return rows
+
+def good_in(ID, data_in, amount_in):
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "zazaguy5",
+        password = "426815",
+        database = "warehouse"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("INSERT INTO goodin VALUES(%s, %s, %s)" , (int(ID), data_in, int(amount_in)))
+    mycursor.execute("SELECT amount FROM goods WHERE ID="+ID)
+    amt = mycursor.fetchall()
+    n = int(amt[0][0])+int(amount_in)
+    mycursor.execute("UPDATE goods SET amount=%s WHERE ID=%s", (int(n), int(ID)))
+    mydb.commit()
+    mydb.close()
+
+def good_out(ID, data_out, amount_out):
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "zazaguy5",
+        password = "426815",
+        database = "warehouse"
+    )
+    mycursor = mydb.cursor()
+    mycursor.execute("INSERT INTO goodout VALUES(%s, %s, %s)" , (int(ID), data_out, int(amount_out)))
+    mycursor.execute("SELECT amount FROM goods WHERE ID="+ID)
+    amt = mycursor.fetchall()
+    n = int(amt[0][0])-int(amount_out)
+    mycursor.execute("UPDATE goods SET amount=%s WHERE ID=%s", (int(n), int(ID)))
+    mydb.commit()
+    mydb.close()
+
