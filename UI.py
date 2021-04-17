@@ -7,8 +7,8 @@ import sys
 row_num = 0
 
 class Ui_MainWindow(object):
+    
     def setupUi(self, MainWindow):
-        #super().__init__()
         MainWindow.setObjectName("MainWindow")
         self.row_table = 100
         MainWindow.setWindowTitle("โปรแกรมการจัดการคลังสินค้า")
@@ -170,8 +170,8 @@ class Ui_MainWindow(object):
         self.date_in.setGeometry(QtCore.QRect(700,500,191,31))
         self.date_in.setStyleSheet(
             "QLineEdit {"
-                "font: 10pt;"
-                "background: rgb(159,226,191);" 
+                "font: 10pt;" 
+                "background: rgb(159,226,191);"
                 "font-family: Ms Shell Dlg 2;"
                 "color: black;"
             "}"
@@ -189,7 +189,7 @@ class Ui_MainWindow(object):
         self.date_out.setStyleSheet(
             "QLineEdit {"
                 "font: 10pt;"
-                "background: rgb(159,226,191);" 
+                "background: rgb(159,226,191);"
                 "font-family: Ms Shell Dlg 2;"
                 "color: black;"
             "}"
@@ -217,8 +217,9 @@ class Ui_MainWindow(object):
         self.select_adddata.addItem("")
         self.select_adddata.setCurrentText("")
         self.select_adddata.addItem("เพิ่มสินค้าใหม่")
-        self.select_adddata.addItem("เพิ่มจำนวนสินค้าในคลัง")
-        self.select_adddata.addItem("นำสินค้าออก")
+        self.select_adddata.addItem("ลบสินค้าออก")
+        self.select_adddata.addItem("นำสินค้าเข้าคลัง")
+        self.select_adddata.addItem("นำสินค้าออกคลัง")
 
         #================================================ Buttons =========================================================
 
@@ -364,28 +365,27 @@ class Ui_MainWindow(object):
             row_num += 1
         row_num = 0
 
-        
-
     def add_db(self):
-        txt = self.select_adddata.currentIndex()
-        if txt==1:
+        index = self.select_adddata.currentIndex()
+        if index==1:
             Database.add_data(self.good_id.text(), self.good_name.text(), self.good_type.currentText(), self.good_amount.text())
             self.show_db()
-        elif txt==2:
+        elif index==3:
             Database.good_in(self.good_id.text(), self.date_in.text(), self.good_amount.text())
             self.show_db()
-        elif txt==3:
-            Database.good_out(self.good_id.text(), self.date_out.text(), self.good_amount.text())
-            self.show_db()
-
-
     
     def delete_db(self):
-        ID = self.good_id.text()
-        Database.delete_data(ID)
-        i = int(ID)-1
-        for j in range(4):
-            self.show_table1.setItem(i,j, QtWidgets.QTableWidgetItem(""))
+        index = self.select_adddata.currentIndex()
+        if index==2:
+            Database.delete_data(self.good_id.text())
+            i = int(self.good_id.text())-1
+            for j in range(4):
+                self.show_table1.setItem(i,j, QtWidgets.QTableWidgetItem(""))
+        elif index==4:
+            Database.good_out(self.good_id.text(), self.date_out.text(), self.good_amount.text())
+            self.show_db()
+        else:
+            print("Incorrect Index!!")
 
     def search_db(self):
         ID = self.search.text()
